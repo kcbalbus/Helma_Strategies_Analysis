@@ -39,6 +39,20 @@ class Board:
 
         return board
 
+    def check_on_winning(self, player_number):
+        if player_number == 1:
+            winning_positions = self.player2_starting_positions
+        elif player_number == 2:
+            winning_positions = self.player1_starting_positions
+
+        pawns_on_win = 0
+
+        for position in winning_positions:
+            if self.board[position[0]][position[1]] == player_number:
+                pawns_on_win+=1
+
+        return pawns_on_win
+
     def check_win(self, player_number):
         return len(self.player1_starting_positions)==self.check_on_winning(player_number)
 
@@ -72,7 +86,7 @@ class Board:
                     if((jump_x, jump_y) not in visited):
                         visited.add((jump_x, jump_y))
                         jumps.append((initial_x, initial_y, jump_x, jump_y))
-                        jumps.extend(self.find_jumps(jump_x, jump_y, visited, x, y))
+                        jumps.extend(self.find_jumps(jump_x, jump_y, visited, initial_x, initial_y))
         return jumps
 
     def get_possible_moves(self, player_number):
@@ -81,7 +95,7 @@ class Board:
 
         for x in range(self.size):
             for y in range(self.size):
-                if(self.board[x][y] == player_number):
+                if self.board[x][y] == player_number:
                     for dx, dy in directions:
                         nx, ny = x + dx, y + dy
                         if(0 <= nx < self.size and 0 <= ny < self.size and self.board[nx][ny] == 0):
@@ -130,7 +144,7 @@ class Board:
                     if((jump_x, jump_y) not in visited):
                         visited.add((jump_x, jump_y))
                         jumps.append((initial_x, initial_y, jump_x, jump_y))
-                        jumps.extend(self.find_jumps(jump_x, jump_y, visited, x, y))
+                        jumps.extend(self.find_jumps(jump_x, jump_y, visited, initial_x, initial_y))
         return jumps
 
     def count_possible_jumps_forward(self, player_number):
@@ -190,16 +204,3 @@ class Board:
 
         return distance
 
-    def check_on_winning(self, player_number):
-        if player_number == 1:
-            winning_positions = self.player2_starting_positions
-        elif player_number == 2:
-            winning_positions = self.player1_starting_positions
-
-        pawns_on_win = 0
-
-        for position in winning_positions:
-            if self.board[position[0]][position[1]] == player_number:
-                pawns_on_win+=1
-
-        return pawns_on_win

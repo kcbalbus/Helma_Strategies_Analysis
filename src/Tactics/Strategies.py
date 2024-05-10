@@ -25,49 +25,44 @@ def winning_position_distance(board, player):
     return score+win_score
 
 def winning_position_distance_and_density(board, player):
-    win_score = board.check_on_winning(player.player_number) * 50
     winning_position_distance_score = winning_position_distance(board, player) * 10
     density_score = density(board, player)
 
-    combined_score = winning_position_distance_score + density_score + win_score
+    combined_score = winning_position_distance_score + density_score
 
     return combined_score
 
 def winning_position_distance_and_random(board, player):
-    win_score = board.check_on_winning(player.player_number) * 50
-    winning_position_distance_score = winning_position_distance(board, player) * 10
+    winning_position_distance_score = winning_position_distance(board, player) * 15
     random_score = random_moves()
 
-    combined_score = winning_position_distance_score + random_score + win_score
+    combined_score = winning_position_distance_score + random_score
 
     return combined_score
 
 
 def winning_position_distance_and_jumps(board, player):
-    win_score = board.check_on_winning(player.player_number) * 50
-    winning_position_distance_score = winning_position_distance(board, player) * 20
+    winning_position_distance_score = winning_position_distance(board, player) * 35
     jumps_score = possible_jumps_forward(board, player)
 
-    combined_score = winning_position_distance_score + jumps_score + win_score
+    combined_score = winning_position_distance_score + jumps_score
 
     return combined_score
 
 def winning_position_distance_and_moves(board, player):
-    win_score = board.check_on_winning(player.player_number) * 50
-    winning_position_distance_score = winning_position_distance(board, player) * 35
+    winning_position_distance_score = winning_position_distance(board, player) * 40
     moves_score = possible_moves_forward(board, player)
 
-    combined_score = winning_position_distance_score + moves_score + win_score
+    combined_score = winning_position_distance_score + moves_score
 
     return combined_score
 
 def winning_position_distance_and_density_and_moves(board, player):
-    win_score = board.check_on_winning(player.player_number) * 50
-    winning_position_distance_score = winning_position_distance(board, player) * 45
+    winning_position_distance_score = winning_position_distance(board, player) * 55
     density_score = density(board, player)
     moves_score = possible_moves_forward(board, player)
 
-    combined_score = winning_position_distance_score + moves_score + density_score + win_score
+    combined_score = winning_position_distance_score + moves_score + density_score
 
     return combined_score
 
